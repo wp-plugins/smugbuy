@@ -3,7 +3,7 @@
 Plugin Name: SmugBuy
 Plugin URI: http://chrismartino.com/smugbuy
 Description: A plugin to automatically insert SmugMug buy links into wordpress posts and pages using a shortcode.
-Version: 1.0
+Version: 1.0.1
 Author: Chris Martino
 Author URI: http://chrismartino.com
 
@@ -32,13 +32,11 @@ register_deactivation_hook( __FILE__, 'smugbuy_remove' );
 
 function smugbuy_install() {
 /* Creates new database fields */
-add_option("smugbuy_url", 'mysite.smugmug.com', '', 'yes');
 add_option("smugbuy_text", 'Buy Print on SmugMug', '', 'yes');
 }
 
 function smugbuy_remove() {
 /* Deletes the database fields */
-delete_option('smugbuy_url');
 delete_option('smugbuy_text');
 }
 
@@ -51,7 +49,9 @@ function smugbuy_func($atts) {
 		'photo' => '',
 	), $atts));
 	ob_start();
-		echo "<a href='".esc_url(str_replace ('#','/',"http://" . get_option('smugbuy_url') . "/buy" . strrchr($photo, '/'))) ."'>" . esc_html(get_option('smugbuy_text')) . "</a>";
+		$smugsplit=explode('/',$photo);
+		$smugurl=$smugsplit[2];
+		echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."'>" . esc_html(get_option('smugbuy_text')) . "</a>";
 	$link = ob_get_clean();
 	return $link;
 }
@@ -79,11 +79,6 @@ function smugbuy_html_page() {
 
 	<table width="650">
 	<tr valign="middle" align="left">
-	<th width="150" scope="row">SmugMug URL</th>
-	<td width="500">
-	http://<input name="smugbuy_url" type="text" size=30 id="smugbuy_url" value="<?php echo get_option('smugbuy_url'); ?>" /> (ex. mysite.smugmug.com)</td>
-	</tr>
-	<tr valign="middle" align="left">
 	<th width="150" scope="row">SmugMug Link Text</th>
 	<td width="500">
 	<input name="smugbuy_text" type="text" size=30 id="smugbuy_text" value="<?php echo get_option('smugbuy_text'); ?>" /> (ex. Buy Print on SmugMug)</td>
@@ -91,7 +86,7 @@ function smugbuy_html_page() {
 	</table>
 
 	<input type="hidden" name="action" value="update" />
-	<input type="hidden" name="page_options" value="smugbuy_url,smugbuy_text" />
+	<input type="hidden" name="page_options" value="smugbuy_text" />
 
 	<p>
 	<input type="submit" value="<?php _e('Save Changes') ?>" />
