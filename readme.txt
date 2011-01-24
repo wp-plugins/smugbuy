@@ -42,7 +42,7 @@ Because no one has sent me any questions yet!  Send me your questions!
 
 == Changelog ==
 
-=1.0.1=
+= 1.0.1 =
 * Changed method for obtaining the smugmug url, thus elimating the "smugbuy_url" option.
 
 = 1.0 =
@@ -50,7 +50,7 @@ Because no one has sent me any questions yet!  Send me your questions!
 
 == Upgrade Notice ==
 
-=1.0.1=
+= 1.0.1 =
 Simplifies the user definable options in the administration panel.
 
 = 1.0 =
