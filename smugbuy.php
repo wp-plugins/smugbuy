@@ -24,24 +24,24 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-/* Runs when plugin is activated */
+// Runs when plugin is activated
 register_activation_hook(__FILE__, 'smugbuy_install');
 
-/* Runs on plugin deactivation*/
+// Runs on plugin deactivation
 register_deactivation_hook( __FILE__, 'smugbuy_remove' );
 
 // Runs Plugin settings link function
 add_filter('plugin_action_links', 'add_smugbuy_settings_link', 10, 2 );
 
+// Creates new database field
 function smugbuy_install() {
-/* Creates new database field */
 add_option("smugbuy_text", 'Buy Print on SmugMug', '', 'yes');
 add_option("smugbuy_gtext", 'Buy Prints on SmugMug', '', 'yes');
 add_option("smugbuy_dsize", 'L', '', 'yes');
 }
 
+// Deletes the database field
 function smugbuy_remove() {
-/* Deletes the database field */
 delete_option('smugbuy_text');
 delete_option('smugbuy_gtext');
 delete_option('smugbuy_dsize');
@@ -88,7 +88,7 @@ add_shortcode('smugbuy', 'smugbuy_func');
 
 if ( is_admin() ){
 
-    /* Call the html code */
+    // Call the html code
     add_action('admin_menu', 'smugbuy_admin_menu');
 
     function smugbuy_admin_menu() {
