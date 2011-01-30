@@ -1,7 +1,7 @@
 === SmugBuy ===
 Contributors: chrismartino
 Donate link: http://chrismartino.com/smugbuy
-Tags: smugmug, photography, photographer, photos, ecommerce, sell, image, picture, print, wordpress, shortcode, post, page, links, plugin
+Tags: smugmug, photography, photographer, photograh, photographs, photo, photos, ecommerce, sell, image, images, picture, pictures, print, prints, wordpress, shortcode, post, page, links, plugin, cart, shopping
 Requires at least: 2.8
 Tested up to: 3.0.4
 Stable tag: 1.1
