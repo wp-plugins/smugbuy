@@ -38,6 +38,7 @@ function smugbuy_install() {
 add_option("smugbuy_text", 'Buy Print on SmugMug', '', 'yes');
 add_option("smugbuy_gtext", 'Buy Prints on SmugMug', '', 'yes');
 add_option("smugbuy_dsize", 'L', '', 'yes');
+add_option("smugbuy_css", 'no', '', 'yes');
 }
 
 // Deletes the database field
@@ -45,7 +46,11 @@ function smugbuy_remove() {
 delete_option('smugbuy_text');
 delete_option('smugbuy_gtext');
 delete_option('smugbuy_dsize');
+delete_option('smugbuy_css');
 }
+
+// Register the customizable stylesheet
+add_action('wp_print_styles', 'add_smugbuy_css');
 
 // [smugbuy photo="smugmug photo page URL"]
 function smugbuy_func($atts) {
@@ -63,12 +68,12 @@ function smugbuy_func($atts) {
                 $smugurl=$smugsplit[2];
             }
             if ($gallery) {
-				echo "<a href='".esc_url("http://" . $smugurl . "/buy" . strrchr($gallery, '/')) ."'>" . esc_html(get_option('smugbuy_gtext')) . "</a>";
+				echo "<a href='".esc_url("http://" . $smugurl . "/buy" . strrchr($gallery, '/')) ."' class=\"smugbuy_gallery\">" . esc_html(get_option('smugbuy_gtext')) . "</a>";
 			} else {
 				if (strtolower($display) == yes) {
 					echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."'><img src='". esc_url(str_replace('#','/',"http://" . $smugurl . strrchr($photo, '#'))) . "-" . get_option('smugbuy_dsize') . ".jpg'></a><br>";
 				}
-                    echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."'>" . esc_html(get_option('smugbuy_text')) . "</a>";
+                    echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' class=\"smugbuy_photo\">" . esc_html(get_option('smugbuy_text')) . "</a>";
             }
         $link = ob_get_clean();
         return $link;
@@ -82,6 +87,18 @@ function add_smugbuy_settings_link($links, $file) {
  		array_unshift($links, $settings_link);
 	}
 	return $links;
+}
+
+// Function to add the custom stylesheet
+function add_smugbuy_css() {
+	if (get_option('smugbuy_css') == "yes") {
+        $smugbuy_css_url = WP_PLUGIN_URL . '/smugbuy/smugbuy.css';
+        $smugbuy_css_file = WP_PLUGIN_DIR . '/smugbuy/smugbuy.css';
+        if ( file_exists($smugbuy_css_file) ) {
+            wp_register_style('smugbuy', $smugbuy_css_url);
+            wp_enqueue_style( 'smugbuy');
+        }
+    }
 }
 
 add_shortcode('smugbuy', 'smugbuy_func');
@@ -110,12 +127,14 @@ function smugbuy_html_page() {
     <td width="500">
     <input name="smugbuy_text" type="text" size=30 id="smugbuy_text" value="<?php echo get_option('smugbuy_text'); ?>" /> (ex. Buy Print on SmugMug)</td>
     </tr>
+    <tr></tr>
     <tr valign="middle" align="left">
     <th width="150" scope="row">Gallery Link Text</th>
     <td width="500">
     <input name="smugbuy_gtext" type="text" size=30 id="smugbuy_gtext" value="<?php echo get_option('smugbuy_gtext'); ?>" /> (ex. Buy Prints on SmugMug)</td>
     </tr>
-    <tr valign="Top" align="left">
+    <tr></tr>
+    <tr valign="top" align="left">
     <th width="150" scope="row">Photo Display Size</th>
     <td width="500">
         <input name="smugbuy_dsize" type="radio" id="smugbuy_dsize" value="Ti" <?php if (get_option('smugbuy_dsize') == "Ti") {echo "checked";} ?> /> Tiny <br>
@@ -127,12 +146,19 @@ function smugbuy_html_page() {
         <input name="smugbuy_dsize" type="radio" id="smugbuy_dsize" value="X2" <?php if (get_option('smugbuy_dsize') == "X2") {echo "checked";} ?> /> X2 Large<br>
         <input name="smugbuy_dsize" type="radio" id="smugbuy_dsize" value="X3" <?php if (get_option('smugbuy_dsize') == "X3") {echo "checked";} ?> /> X3 Large</td>
     </tr>
+    <tr></tr>
+	<tr valign="top" align="left">
+    <th width="150" scope="row">Use smugbuy.css?</th>
+    <td width="500">
+    	<input name="smugbuy_css" type="radio" id="smugbuy_css" value="yes" <?php if (get_option('smugbuy_css') == "yes") {echo "checked";} ?> /> Yes<br>
+		<input name="smugbuy_css" type="radio" id="smugbuy_css" value="no" <?php if (get_option('smugbuy_css') == "no") {echo "checked";} ?> /> No</td>
+	</tr>
     </table><br>
 	<strong>Note:</strong> Displayed images will only appear as large as they're allowed by the SmugMug gallery<br>
 	configuration.  If you select a display size larger than the gallery settings permit a smaller
 	<br>one may appear.<br>
     <input type="hidden" name="action" value="update" />
-    <input type="hidden" name="page_options" value="smugbuy_text,smugbuy_gtext,smugbuy_dsize" />
+    <input type="hidden" name="page_options" value="smugbuy_text,smugbuy_gtext,smugbuy_dsize,smugbuy_css" />
 
     <p>
     <input type="submit" value="<?php _e('Save Changes') ?>" />

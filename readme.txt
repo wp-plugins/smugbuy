@@ -40,9 +40,10 @@ Example (Gallery):
 
 == Frequently Asked Questions ==
 
-= How come there aren't any questions here? =
+= How do I customize the SmugBuy links using CSS? =
 
-Because no one has sent me any questions yet!  Send me your questions!
+First, you must enable the use of smugbuy.css in the SmugBuy options screen.  Once enabled edit `smugbuy.css` in the *Plugins* editor screen.
+
 
 == Screenshots ==
 
@@ -51,6 +52,9 @@ Because no one has sent me any questions yet!  Send me your questions!
 3. Post editor example.
 
 == Changelog ==
+
+= 1.1.1 =
+* Added the ability to customize the links using a css file.  The feature is disabled by default and can be enabled in the SmugBuy options panel.
 
 = 1.1 =
 * Added gallery support.
@@ -64,6 +68,9 @@ Because no one has sent me any questions yet!  Send me your questions!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Customize the links using CSS!
 
 = 1.1 =
 Display the photo above your "buy" link, and also insert gallery "buy" links!
