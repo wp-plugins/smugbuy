@@ -3,7 +3,7 @@
 Plugin Name: SmugBuy
 Plugin URI: http://chrismartino.com/smugbuy
 Description: A plugin to automatically insert SmugMug buy links into wordpress posts and pages using a shortcode.
-Version: 1.1
+Version: 1.1.1
 Author: Chris Martino
 Author URI: http://chrismartino.com
 
