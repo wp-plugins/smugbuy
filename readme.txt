@@ -3,7 +3,7 @@ Contributors: chrismartino
 Donate link: http://chrismartino.com/smugbuy
 Tags: smugmug, photography, photographer, photograh, photographs, photo, photos, ecommerce, sell, image, images, picture, pictures, print, prints, wordpress, shortcode, post, page, links, plugin, cart, shopping
 Requires at least: 2.8
-Tested up to: 3.0.4
+Tested up to: 3.0.5
 Stable tag: 1.1
 
 A plugin to automatically insert SmugMug "buy" links into wordpress posts and pages using a shortcode.
@@ -40,9 +40,13 @@ Example (Gallery):
 
 == Frequently Asked Questions ==
 
-= How come there aren't any questions here? =
+= I recently upgraded my SmugBuy plugin, however some of the options appear to be missing.  What do I do?
 
-Because no one has sent me any questions yet!  Send me your questions!
+Try deactivating and reactivating SmugBuy from the *Plugins* administration screen.
+
+= How do I customize the SmugBuy links using CSS? =
+
+First, you must enable the use of smugbuy.css in the SmugBuy options screen.  Once enabled edit `smugbuy.css` in the *Plugins* editor screen.
 
 == Screenshots ==
 
@@ -51,6 +55,9 @@ Because no one has sent me any questions yet!  Send me your questions!
 3. Post editor example.
 
 == Changelog ==
+
+= 1.1.1 =
+* Added the ability to customize the links using a css file.  The feature is disabled by default and can be enabled in the SmugBuy options panel.
 
 = 1.1 =
 * Added gallery support.
@@ -64,6 +71,9 @@ Because no one has sent me any questions yet!  Send me your questions!
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Customize the links using CSS!
 
 = 1.1 =
 Display the photo above your "buy" link, and also insert gallery "buy" links!
