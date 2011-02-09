@@ -40,13 +40,13 @@ Example (Gallery):
 
 == Frequently Asked Questions ==
 
-= I recently upgraded my SmugBuy plugin, however some of the options appear to be missing.  What do I do? =
+= I recently upgraded my SmugBuy plugin, however some of the options are missing.  What do I do? =
 
 Try deactivating and reactivating SmugBuy from the *Plugins* administration screen.
 
 = How do I customize the SmugBuy links using CSS? =
 
-First, you must enable the use of smugbuy.css in the SmugBuy options screen.  Once enabled edit `smugbuy.css` in the *Plugins* editor screen.
+First, you must enable the use of `smugbuy.css` in the SmugBuy settings screen.  Once enabled edit `smugbuy.css` in the *Plugins* editor screen.
 
 == Screenshots ==
 
