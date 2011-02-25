@@ -4,7 +4,7 @@ Donate link: http://chrismartino.com/smugbuy
 Tags: smugmug, photography, photographer, photograh, photographs, photo, photos, ecommerce, sell, image, images, picture, pictures, print, prints, wordpress, shortcode, post, page, links, plugin, cart, shopping
 Requires at least: 2.8
 Tested up to: 3.1
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 
 A plugin to automatically insert SmugMug "buy" links into wordpress posts and pages using a shortcode.
 
