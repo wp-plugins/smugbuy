@@ -3,7 +3,7 @@
 Plugin Name: SmugBuy
 Plugin URI: http://chrismartino.com/smugbuy
 Description: A plugin to automatically insert SmugMug buy links into wordpress posts and pages using a shortcode.
-Version: 1.1.1
+Version: 1.1.2
 Author: Chris Martino
 Author URI: http://chrismartino.com
 
@@ -39,6 +39,7 @@ add_option("smugbuy_text", 'Buy Print on SmugMug', '', 'yes');
 add_option("smugbuy_gtext", 'Buy Prints on SmugMug', '', 'yes');
 add_option("smugbuy_dsize", 'L', '', 'yes');
 add_option("smugbuy_css", 'no', '', 'yes');
+add_option("smugbuy_target", '_self', '', 'yes');
 }
 
 // Deletes the database field
@@ -47,6 +48,7 @@ delete_option('smugbuy_text');
 delete_option('smugbuy_gtext');
 delete_option('smugbuy_dsize');
 delete_option('smugbuy_css');
+delete_option('smugbuy_target');
 }
 
 // Register the customizable stylesheet
@@ -68,12 +70,12 @@ function smugbuy_func($atts) {
                 $smugurl=$smugsplit[2];
             }
             if ($gallery) {
-				echo "<a href='".esc_url("http://" . $smugurl . "/buy" . strrchr($gallery, '/')) ."' class=\"smugbuy_gallery\">" . esc_html(get_option('smugbuy_gtext')) . "</a>";
+				echo "<a href='".esc_url("http://" . $smugurl . "/buy" . strrchr($gallery, '/')) ."' class=\"smugbuy_gallery\" target=" . get_option('smugbuy_target') . ">" . esc_html(get_option('smugbuy_gtext')) . "</a>";
 			} else {
 				if (strtolower($display) == yes) {
-					echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."'><img src='". esc_url(str_replace('#','/',"http://" . $smugurl . strrchr($photo, '#'))) . "-" . get_option('smugbuy_dsize') . ".jpg'></a><br>";
+					echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' target=" . get_option('smugbuy_target') . "><img src='". esc_url(str_replace('#','/',"http://" . $smugurl . strrchr($photo, '#'))) . "-" . get_option('smugbuy_dsize') . ".jpg'></a><br>";
 				}
-                    echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' class=\"smugbuy_photo\">" . esc_html(get_option('smugbuy_text')) . "</a>";
+                    echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' class=\"smugbuy_photo\" target=" . get_option('smugbuy_target') . ">" . esc_html(get_option('smugbuy_text')) . "</a>";
             }
         $link = ob_get_clean();
         return $link;
@@ -153,12 +155,19 @@ function smugbuy_html_page() {
     	<input name="smugbuy_css" type="radio" id="smugbuy_css" value="yes" <?php if (get_option('smugbuy_css') == "yes") {echo "checked";} ?> /> Yes<br>
 		<input name="smugbuy_css" type="radio" id="smugbuy_css" value="no" <?php if (get_option('smugbuy_css') == "no") {echo "checked";} ?> /> No</td>
 	</tr>
+	    <tr></tr>
+	<tr valign="top" align="left">
+    <th width="150" scope="row">Open links in new window?</th>
+    <td width="500">
+		<input name="smugbuy_target" type="radio" id="smugbuy_target" value="_blank" <?php if (get_option('smugbuy_target') == "_blank") {echo "checked";} ?> /> Yes<br>
+    	<input name="smugbuy_target" type="radio" id="smugbuy_target" value="_self" <?php if (get_option('smugbuy_target') == "_self") {echo "checked";} ?> /> No</td>
+	</tr>
     </table><br>
 	<strong>Note:</strong> Displayed images will only appear as large as they're allowed by the SmugMug gallery<br>
 	configuration.  If you select a display size larger than the gallery settings permit a smaller
 	<br>one may appear.<br>
     <input type="hidden" name="action" value="update" />
-    <input type="hidden" name="page_options" value="smugbuy_text,smugbuy_gtext,smugbuy_dsize,smugbuy_css" />
+    <input type="hidden" name="page_options" value="smugbuy_text,smugbuy_gtext,smugbuy_dsize,smugbuy_css,smugbuy_target" />
 
     <p>
     <input type="submit" value="<?php _e('Save Changes') ?>" />

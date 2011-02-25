@@ -3,8 +3,8 @@ Contributors: chrismartino
 Donate link: http://chrismartino.com/smugbuy
 Tags: smugmug, photography, photographer, photograh, photographs, photo, photos, ecommerce, sell, image, images, picture, pictures, print, prints, wordpress, shortcode, post, page, links, plugin, cart, shopping
 Requires at least: 2.8
-Tested up to: 3.0.5
-Stable tag: 1.1.1
+Tested up to: 3.1
+Stable tag: 1.1.2
 
 A plugin to automatically insert SmugMug "buy" links into wordpress posts and pages using a shortcode.
 
@@ -48,6 +48,9 @@ Try deactivating and reactivating SmugBuy from the *Plugins* administration scre
 
 First, you must enable the use of `smugbuy.css` in the SmugBuy settings screen.  Once enabled edit `smugbuy.css` in the *Plugins* editor screen.
 
+= Why aren't my SmugBuy links generating properly? =
+Sometimes using the visual editor can create problems with SmugBuy.  If you're using the visual editor make sure the SmugMug links don't get linkified.  If they do, click on the `unlink` icon on the toolbar, or press `alt-shift-a`.
+
 == Screenshots ==
 
 1. The administration panel.
@@ -55,6 +58,10 @@ First, you must enable the use of `smugbuy.css` in the SmugBuy settings screen. 
 3. Post editor example.
 
 == Changelog ==
+
+= 1.1.2 =
+* Added option to open the "buy" link in a new window.
+* Verified compatibility with WordPress 3.1.
 
 = 1.1.1 =
 * Added the ability to customize the links using a css file.  The feature is disabled by default and can be enabled in the SmugBuy options panel.
@@ -71,6 +78,9 @@ First, you must enable the use of `smugbuy.css` in the SmugBuy settings screen. 
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+Open your "buy" links in a new window!
 
 = 1.1.1 =
 Customize the links using CSS!
