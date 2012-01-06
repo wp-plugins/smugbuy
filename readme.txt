@@ -3,8 +3,8 @@ Contributors: chrismartino
 Donate link: http://chrismartino.com/smugbuy
 Tags: smugmug, photography, photographer, photograh, photographs, photo, photos, ecommerce, sell, image, images, picture, pictures, print, prints, wordpress, shortcode, post, page, links, plugin, cart, shopping
 Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 1.1.2
+Tested up to: 3.3.1
+Stable tag: 1.1.3
 
 A plugin to automatically insert SmugMug "buy" links into wordpress posts and pages using a shortcode.
 
@@ -59,6 +59,10 @@ Sometimes using the visual editor can create problems with SmugBuy.  If you're u
 
 == Changelog ==
 
+= 1.1.3 =
+* Added some support options in the admin screen.
+* Verified compatibility with WordPress 3.3.1.
+
 = 1.1.2 =
 * Added option to open the "buy" link in a new window.
 * Verified compatibility with WordPress 3.1.
@@ -78,6 +82,9 @@ Sometimes using the visual editor can create problems with SmugBuy.  If you're u
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.3 =
+Support options now in the admin screen!
 
 = 1.1.2 =
 Open your "buy" links in a new window!

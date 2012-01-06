@@ -3,11 +3,11 @@
 Plugin Name: SmugBuy
 Plugin URI: http://chrismartino.com/smugbuy
 Description: A plugin to automatically insert SmugMug buy links into wordpress posts and pages using a shortcode.
-Version: 1.1.2
+Version: 1.1.3
 Author: Chris Martino
 Author URI: http://chrismartino.com
 
-Copyright 2011  CHRIS_MARTINO  (email : chris@chrismartino.com)
+Copyright 2012  CHRIS_MARTINO  (email : chris@chrismartino.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+global $wp_version;
 
 // Runs when plugin is activated
 register_activation_hook(__FILE__, 'smugbuy_install');
@@ -103,6 +104,13 @@ function add_smugbuy_css() {
     }
 }
 
+// Function to get the version from the plugin file
+function smugbuy_get_version() {
+	$plugin_data = get_plugin_data( __FILE__ );
+    $plugin_version = $plugin_data['Version'];
+    return $plugin_version;
+}
+
 add_shortcode('smugbuy', 'smugbuy_func');
 
 if ( is_admin() ){
@@ -168,12 +176,18 @@ function smugbuy_html_page() {
 	<br>one may appear.<br>
     <input type="hidden" name="action" value="update" />
     <input type="hidden" name="page_options" value="smugbuy_text,smugbuy_gtext,smugbuy_dsize,smugbuy_css,smugbuy_target" />
-
     <p>
     <input type="submit" value="<?php _e('Save Changes') ?>" />
     </p>
 
 	</form>
+	<p>
+	<strong>Need Help?</strong> Post a message in the <a href="http://dgrin.com/showthread.php?t=188505">SmugBuy thread</a> on Digital Grin, or in the <a href="http://wordpress.org/tags/smugbuy?forum_id=10">SmugBuy forum</a> on WordPress.org.<br>
+	<br>
+	<strong>Support Info:</strong><br>
+	SmugBuy Version: <?php echo smugbuy_get_version(); ?><br>
+	WordPress Version: <?php bloginfo('version'); ?><br>
+    </p>
     </div>
 <?php
 }
