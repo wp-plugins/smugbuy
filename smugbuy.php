@@ -3,11 +3,11 @@
 Plugin Name: SmugBuy
 Plugin URI: http://chrismartino.com/smugbuy
 Description: A plugin to automatically insert SmugMug buy links into wordpress posts and pages using a shortcode.
-Version: 1.1.2
+Version: 1.1.4
 Author: Chris Martino
 Author URI: http://chrismartino.com
 
-Copyright 2011  CHRIS_MARTINO  (email : chris@chrismartino.com)
+Copyright 2012  CHRIS_MARTINO  (email : chris@chrismartino.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
+global $wp_version;
 
 // Runs when plugin is activated
 register_activation_hook(__FILE__, 'smugbuy_install');
@@ -69,17 +70,47 @@ function smugbuy_func($atts) {
                 $smugsplit=explode('/',$photo);
                 $smugurl=$smugsplit[2];
             }
+            //$newurl = stristr($smugurl, 'prints');
             if ($gallery) {
 				echo "<a href='".esc_url("http://" . $smugurl . "/buy" . strrchr($gallery, '/')) ."' class=\"smugbuy_gallery\" target=" . get_option('smugbuy_target') . ">" . esc_html(get_option('smugbuy_gtext')) . "</a>";
 			} else {
 				if (strtolower($display) == yes) {
-					echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' target=" . get_option('smugbuy_target') . "><img src='". esc_url(str_replace('#','/',"http://" . $smugurl . strrchr($photo, '#'))) . "-" . get_option('smugbuy_dsize') . ".jpg'></a><br>";
-				}
-                    echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' class=\"smugbuy_photo\" target=" . get_option('smugbuy_target') . ">" . esc_html(get_option('smugbuy_text')) . "</a>";
+					if(stristr("$smugsplit[5]", '!i') == TRUE) {
+						$smugphotoid_key=explode('=',$photo);
+						$smugphotoid=strstr($smugphotoid_key[1],'&', $before_needle=TRUE);
+						$smugphotokey=$smugphotoid_key[2];
+						echo "<a href='".strstr(esc_url("http://" . $smugurl . "/buy" . strrchr($photo, '/')),'#',$before_needle=TRUE) ."/$smugphotoid" . "_" . "$smugphotokey' class=\"smugbuy_photo\" target=" . get_option('smugbuy_target') . "><img src='".strstr(esc_url("http://" . $smugurl . strrchr($photo, '/')),'#',$before_needle=TRUE) . "/$smugphotoid" . "_" . "$smugphotokey" . "-" . get_option('smugbuy_dsize') . ".jpg'></a><br>";
+					} else {
+						echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' target=" . get_option('smugbuy_target') . "><img src='". esc_url(str_replace('#','/',"http://" . $smugurl . strrchr($photo, '#'))) . "-" . get_option('smugbuy_dsize') . ".jpg'></a><br>";
+					}
+				} 
+					if(stristr("$smugsplit[5]", '!i') == TRUE) {
+						$smugphotoid_key=explode('=',$photo);
+						$smugphotoid=strstr($smugphotoid_key[1],'&', $before_needle=TRUE);
+						$smugphotokey=$smugphotoid_key[2];
+						echo "<a href='".strstr(esc_url("http://" . $smugurl . "/buy" . strrchr($photo, '/')),'#',$before_needle=TRUE) ."/$smugphotoid" . "_" . "$smugphotokey' class=\"smugbuy_photo\" target=" . get_option('smugbuy_target') . ">" . esc_html(get_option('smugbuy_text')) . "</a>";
+					} else {
+ 	 	          		echo "<a href='".esc_url(str_replace ('#','/',"http://" . $smugurl . "/buy" . strrchr($photo, '/'))) ."' class=\"smugbuy_photo\" target=" . get_option('smugbuy_target') . ">" . esc_html(get_option('smugbuy_text')) . "</a>";
+					}
+					
             }
         $link = ob_get_clean();
         return $link;
 }
+
+// Parse the new type of URL for the correct values
+function parseUrl($query) { 
+    $queryParts = explode('&', $query); 
+    
+    $params = array(); 
+    foreach ($queryParts as $param) { 
+        $item = explode('=', $param); 
+        $params[$item[0]] = $item[1]; 
+    } 
+    
+    return $params; 
+} 
+
 // Add Settings link to plugins page
 function add_smugbuy_settings_link($links, $file) {
 	static $this_plugin;
@@ -101,6 +132,13 @@ function add_smugbuy_css() {
             wp_enqueue_style( 'smugbuy');
         }
     }
+}
+
+// Function to get the version from the plugin file
+function smugbuy_get_version() {
+	$plugin_data = get_plugin_data( __FILE__ );
+    $plugin_version = $plugin_data['Version'];
+    return $plugin_version;
 }
 
 add_shortcode('smugbuy', 'smugbuy_func');
@@ -168,12 +206,18 @@ function smugbuy_html_page() {
 	<br>one may appear.<br>
     <input type="hidden" name="action" value="update" />
     <input type="hidden" name="page_options" value="smugbuy_text,smugbuy_gtext,smugbuy_dsize,smugbuy_css,smugbuy_target" />
-
     <p>
     <input type="submit" value="<?php _e('Save Changes') ?>" />
     </p>
 
 	</form>
+	<p>
+	<strong>Need Help?</strong> Post a message in the <a href="http://dgrin.com/showthread.php?t=188505">SmugBuy thread</a> on Digital Grin, or in the <a href="http://wordpress.org/tags/smugbuy?forum_id=10">SmugBuy forum</a> on WordPress.org.<br>
+	<br>
+	<strong>Support Info:</strong><br>
+	SmugBuy Version: <?php echo smugbuy_get_version(); ?><br>
+	WordPress Version: <?php bloginfo('version'); ?><br>
+    </p>
     </div>
 <?php
 }
