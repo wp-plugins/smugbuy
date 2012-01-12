@@ -3,8 +3,8 @@ Contributors: chrismartino
 Donate link: http://chrismartino.com/smugbuy
 Tags: smugmug, photography, photographer, photograh, photographs, photo, photos, ecommerce, sell, image, images, picture, pictures, print, prints, wordpress, shortcode, post, page, links, plugin, cart, shopping
 Requires at least: 2.8
-Tested up to: 3.1
-Stable tag: 1.1.2
+Tested up to: 3.3.1
+Stable tag: 1.1.5
 
 A plugin to automatically insert SmugMug "buy" links into wordpress posts and pages using a shortcode.
 
@@ -28,15 +28,15 @@ For more information on SmugMug head to [www.smugmug.com](http://www.smugmug.com
 
 Example (Photo w/o display):
 
-`[smugbuy photo="http://prints.chrismartino.com/Galleries/ForYourWall/12948111_n28si#812797367_X3w3G"]`
+`[smugbuy photo="http://prints.chrismartino.com/Galleries/ForYourWall/12948111_cLRpFG#!i=919177302&k=auTM7"]`
 
 Example (Photo w/ display):
 
-`[smugbuy photo="http://prints.chrismartino.com/Galleries/ForYourWall/12948111_n28si#812797367_X3w3G" display="yes"]`
+`[smugbuy photo="http://prints.chrismartino.com/Galleries/ForYourWall/12948111_cLRpFG#!i=919177302&k=auTM7" display="yes"]`
 
 Example (Gallery):
 
-`[smugbuy gallery="http://prints.chrismartino.com/Galleries/ForYourWall/12948111_n28si"]`
+`[smugbuy gallery="http://prints.chrismartino.com/Galleries/ForYourWall/12948111_cLRpFG"]`
 
 == Frequently Asked Questions ==
 
@@ -59,6 +59,17 @@ Sometimes using the visual editor can create problems with SmugBuy.  If you're u
 
 == Changelog ==
 
+= 1.1.5 =
+* 1.1.4 used a PHP function that was only available in PHP 5.3 and above.  This version is compatible with PHP 5.0 and greater.  An upgrade isn't necessary if you're running PHP 5.3 or higher.
+* Code cleanup.
+
+= 1.1.4 =
+* SmugMug changed the URL structure to improve SEO.  This version of SmugBuy is compatible with the new URLs.  It is also backward compatible with the old style URLs.
+
+= 1.1.3 =
+* Added some support options in the admin screen.
+* Verified compatibility with WordPress 3.3.1.
+
 = 1.1.2 =
 * Added option to open the "buy" link in a new window.
 * Verified compatibility with WordPress 3.1.
@@ -78,6 +89,15 @@ Sometimes using the visual editor can create problems with SmugBuy.  If you're u
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.1.5 =
+Now compatible with earlier versions of PHP!
+
+= 1.1.4 =
+Supports SmugMug's new SEO enhanced URLs.
+
+= 1.1.3 =
+Support options now in the admin screen!
 
 = 1.1.2 =
 Open your "buy" links in a new window!
